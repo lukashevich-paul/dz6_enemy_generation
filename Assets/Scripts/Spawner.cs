@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Enemy _prefab;
-    [SerializeField] private GameObject _target;
+    [SerializeField] private Transform _target;
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField, Min(0)] private float _spawnDelay = 2f;
 
@@ -49,7 +49,7 @@ public class Spawner : MonoBehaviour
             Vector3 position = _spawnPoints[index].transform.position;
 
             Enemy enemy = _pool.Get();
-            Vector3 direction = (_target.transform.position - position).normalized;  
+            Vector3 direction = (_target.position - position).normalized;
             enemy.Init(position, direction);
 
             enemy.Died += OnDied;
@@ -58,7 +58,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void OnDied(Enemy enemy) 
+    private void OnDied(Enemy enemy)
     {
         enemy.Died -= OnDied;
 

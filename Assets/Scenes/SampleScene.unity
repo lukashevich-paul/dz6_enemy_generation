@@ -523,9 +523,10 @@ GameObject:
   - component: {fileID: 1003415310}
   - component: {fileID: 1003415309}
   - component: {fileID: 1003415308}
+  - component: {fileID: 1003415312}
   m_Layer: 0
   m_Name: Target
-  m_TagString: Finish
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -616,6 +617,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1003415312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003415307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f729a072b9ba54438ed732ac6eaaffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1488335857
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1866338169874924274, guid: 3493ddb2a6f302a429217ca6906d2083, type: 3}
-  _target: {fileID: 1003415307}
+  _target: {fileID: 1003415311}
   _spawnPoints:
   - {fileID: 799847297}
   - {fileID: 1931239721}
