@@ -4,26 +4,43 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField, Min(0)] private float _speed = 2f;
-    [SerializeField] private Vector3 _direction;
+
+    private Vector3 _target;
+    private Rigidbody _rigidbody;
 
     public event Action<Enemy> Died;
 
+    public SpawnPoint Parent { get; private set; }
+
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
     private void Update()
     {
-        transform.Translate(_direction * _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Target>(out _))
         {
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+
             Died?.Invoke(this);
         }
     }
 
-    public void Init(Vector3 startPosition, Vector3 direction)
+    public void SetParent(SpawnPoint parent)
+    {
+        Parent = parent;
+    }
+
+    public void Init(Vector3 startPosition, Vector3 target)
     {
         transform.position = startPosition;
-        _direction = direction;
+        _target = target;
     }
 }
