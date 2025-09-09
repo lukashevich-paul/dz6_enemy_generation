@@ -34,7 +34,7 @@ public class SpawnPoint : MonoBehaviour
     public Enemy GetUnit()
     {
         Enemy enemy = _pool.Get();
-        enemy.Init(transform.position, _target.position);
+        enemy.Init(transform.position, _target);
 
         return enemy;
     }

@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField, Min(0)] private float _speed = 2f;
 
-    private Vector3 _target;
+    private Transform _targetTransform;
     private Rigidbody _rigidbody;
 
     public event Action<Enemy> Died;
@@ -19,12 +19,12 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _targetTransform.position, _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Target>(out _))
+        if (other.transform == _targetTransform && other.TryGetComponent<Target>(out _))
         {
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;
@@ -47,9 +47,9 @@ public class Enemy : MonoBehaviour
         SetParentColor();
     }
 
-    public void Init(Vector3 startPosition, Vector3 target)
+    public void Init(Vector3 startPosition, Transform targetTransform)
     {
         transform.position = startPosition;
-        _target = target;
+        _targetTransform = targetTransform;
     }
 }
