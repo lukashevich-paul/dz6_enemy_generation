@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField, Min(0)] private float _spawnDelay = 2f;
+    [SerializeField] private List<Transform> _spawnPoints;
 
     private Coroutine _coroutine;
 
@@ -25,6 +25,8 @@ public class Spawner : MonoBehaviour
 
         while (enabled)
         {
+            yield return wait;
+
             int index = Random.Range(0, _spawnPoints.Count);
 
             if (_spawnPoints[index].TryGetComponent<SpawnPoint>(out SpawnPoint _point))
@@ -32,14 +34,12 @@ public class Spawner : MonoBehaviour
                 Enemy enemy = _point.GetUnit();
                 enemy.Died += OnDied;
             }
-
-            yield return wait;
         }
     }
 
     private void OnDied(Enemy enemy)
     {
         enemy.Died -= OnDied;
-        enemy.Parent.Release(enemy);
+        enemy.SpawnPoint.Release(enemy);
     }
 }

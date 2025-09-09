@@ -10,9 +10,9 @@ public class Enemy : MonoBehaviour
 
     public event Action<Enemy> Died;
 
-    public SpawnPoint Parent { get; private set; }
+    public SpawnPoint SpawnPoint { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
@@ -32,10 +32,19 @@ public class Enemy : MonoBehaviour
             Died?.Invoke(this);
         }
     }
+    private void SetParentColor()
+    {
+        if (SpawnPoint != null && SpawnPoint.TryGetComponent<Renderer>(out Renderer parent))
+        {
+            if (TryGetComponent<Renderer>(out Renderer renderer))
+                renderer.material.color = parent.material.color;
+        }
+    }
 
     public void SetParent(SpawnPoint parent)
     {
-        Parent = parent;
+        SpawnPoint = parent;
+        SetParentColor();
     }
 
     public void Init(Vector3 startPosition, Vector3 target)
