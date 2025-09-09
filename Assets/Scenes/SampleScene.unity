@@ -238,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 88092183}
   m_Layer: 0
-  m_Name: WayPoints Cilinder
+  m_Name: WayPoints Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 589994239}
   - component: {fileID: 589994241}
   m_Layer: 0
-  m_Name: SpawnPoint (3)
+  m_Name: Spawn Sphere
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 799847298}
   - component: {fileID: 799847301}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: Spawn Capsule
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1261,7 +1261,7 @@ GameObject:
   - component: {fileID: 1551954183}
   - component: {fileID: 1551954186}
   m_Layer: 0
-  m_Name: SpawnPoint (2)
+  m_Name: Spawn Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1599,7 +1599,7 @@ GameObject:
   - component: {fileID: 1931239722}
   - component: {fileID: 1931239725}
   m_Layer: 0
-  m_Name: SpawnPoint (1)
+  m_Name: Spawn Cube
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
