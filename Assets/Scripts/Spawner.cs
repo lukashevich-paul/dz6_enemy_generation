@@ -16,30 +16,24 @@ public class Spawner : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(_coroutine);
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
     }
 
     private IEnumerator Routine()
     {
         WaitForSeconds wait = new WaitForSeconds(_spawnDelay);
 
-        while (enabled)
+        while (_spawnPoints.Count > 0 && enabled)
         {
-            yield return wait;
-
             int index = Random.Range(0, _spawnPoints.Count);
 
-            if (_spawnPoints[index].TryGetComponent<SpawnPoint>(out SpawnPoint _point))
+            if (_spawnPoints[index].TryGetComponent(out SpawnPoint _point))
             {
-                Enemy enemy = _point.GetUnit();
-                enemy.Died += OnDied;
+                _point.SpawnEnemy();
             }
-        }
-    }
 
-    private void OnDied(Enemy enemy)
-    {
-        enemy.Died -= OnDied;
-        enemy.SpawnPoint.Release(enemy);
+            yield return wait;
+        }
     }
 }

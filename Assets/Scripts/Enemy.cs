@@ -1,55 +1,44 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody), typeof(Renderer))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField, Min(0)] private float _speed = 2f;
 
     private Transform _targetTransform;
     private Rigidbody _rigidbody;
+    private Renderer _renderer;
 
     public event Action<Enemy> Died;
 
-    public SpawnPoint SpawnPoint { get; private set; }
-
-    private void Awake()
+    private void OnEnable()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _renderer = GetComponent<Renderer>();
     }
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _targetTransform.position, _speed * Time.deltaTime);
+        if (_targetTransform != null)
+            transform.position = Vector3.MoveTowards(transform.position, _targetTransform.position, _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform == _targetTransform && other.TryGetComponent<Target>(out _))
+        if (other.transform == _targetTransform)
         {
-            _rigidbody.velocity = Vector3.zero;
-            _rigidbody.angularVelocity = Vector3.zero;
-
             Died?.Invoke(this);
         }
     }
-    private void SetParentColor()
-    {
-        if (SpawnPoint != null && SpawnPoint.TryGetComponent<Renderer>(out Renderer parent))
-        {
-            if (TryGetComponent<Renderer>(out Renderer renderer))
-                renderer.material.color = parent.material.color;
-        }
-    }
 
-    public void SetParent(SpawnPoint parent)
+    public void Init(Vector3 startPosition, Transform targetTransform, Color color)
     {
-        SpawnPoint = parent;
-        SetParentColor();
-    }
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
 
-    public void Init(Vector3 startPosition, Transform targetTransform)
-    {
         transform.position = startPosition;
         _targetTransform = targetTransform;
+        _renderer.material.color = color;
     }
 }
